@@ -5,7 +5,7 @@
 # uses CMake
 
 # define the version
-VER=dde02fceedfc1ba09d4d4f71a2b5dafcfcb85491
+VER=c50d586b9a43395a83e51821ebd1759d1c4668e4
 
 # tools for git use
 GIT_URL="https://github.com/eigenteam/eigen-git-mirror.git"
