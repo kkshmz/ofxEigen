@@ -9,7 +9,7 @@
 
 
 #include <Eigen/Dense>
-
+#include <Eigen/Core>
 
 // namespace ofxEigen = ofx::Eigen;
 

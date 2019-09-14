@@ -31,7 +31,6 @@ example*/*
 ################################################################################
 
 # Exclude 3rd party libs by default.
-libs/*
 
 # Don't exclude ofx libs by default.
 !libs/ofx*
