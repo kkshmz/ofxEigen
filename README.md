@@ -1,4 +1,5 @@
 # ofxEigen
+Using eigen from nanogui in libigl
 
 
 ## Description

@@ -95,10 +95,10 @@ template<typename Scalar> struct GoogleSparseHashMapTraits
   *
   * \brief The RandomSetter is a wrapper object allowing to set/update a sparse matrix with random access
   *
-  * \tparam SparseMatrixType the type of the sparse matrix we are updating
-  * \tparam MapTraits a traits class representing the map implementation used for the temporary sparse storage.
+  * \param SparseMatrixType the type of the sparse matrix we are updating
+  * \param MapTraits a traits class representing the map implementation used for the temporary sparse storage.
   *                  Its default value depends on the system.
-  * \tparam OuterPacketBits defines the number of rows (or columns) manage by a single map object
+  * \param OuterPacketBits defines the number of rows (or columns) manage by a single map object
   *                        as a power of two exponent.
   *
   * This class temporarily represents a sparse matrix object using a generic map implementation allowing for
@@ -154,7 +154,7 @@ template<typename SparseMatrixType,
 class RandomSetter
 {
     typedef typename SparseMatrixType::Scalar Scalar;
-    typedef typename SparseMatrixType::StorageIndex StorageIndex;
+    typedef typename SparseMatrixType::Index Index;
 
     struct ScalarWrapper
     {
@@ -249,10 +249,10 @@ class RandomSetter
           }
         }
         // prefix sum
-        StorageIndex count = 0;
+        Index count = 0;
         for (Index j=0; j<mp_target->outerSize(); ++j)
         {
-          StorageIndex tmp = positions[j];
+          Index tmp = positions[j];
           mp_target->outerIndexPtr()[j] = count;
           positions[j] = count;
           count += tmp;
@@ -281,7 +281,7 @@ class RandomSetter
               mp_target->innerIndexPtr()[i+1] = mp_target->innerIndexPtr()[i];
               --i;
             }
-            mp_target->innerIndexPtr()[i+1] = internal::convert_index<StorageIndex>(inner);
+            mp_target->innerIndexPtr()[i+1] = inner;
             mp_target->valuePtr()[i+1] = it->second.value;
           }
         }
@@ -296,7 +296,7 @@ class RandomSetter
       const Index inner = SetterRowMajor ? col : row;
       const Index outerMajor = outer >> OuterPacketBits; // index of the packet/map
       const Index outerMinor = outer & OuterPacketMask;  // index of the inner vector in the packet
-      const KeyType key = internal::convert_index<KeyType>((outerMinor<<m_keyBitsOffset) | inner);
+      const KeyType key = (KeyType(outerMinor)<<m_keyBitsOffset) | inner;
       return m_hashmaps[outerMajor][key].value;
     }
 
