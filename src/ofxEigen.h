@@ -4,7 +4,8 @@
 // SPDX-License-Identifier:	MIT
 //
 
-
+#ifndef ofxEigen_h
+#define ofxEigen_h
 #pragma once
 
 
@@ -13,3 +14,4 @@
 
 // namespace ofxEigen = ofx::Eigen;
 
+#endif
